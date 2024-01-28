@@ -6,7 +6,7 @@
   "scripts": {
     "deployCommands": "node ./src/commands/deploy.js",
     "clearCommands": "node ./src/commands/clear.js",
-    "test": "jest"
+    "test": "jest --silent"
   },
   "keywords": [
     "discord",
