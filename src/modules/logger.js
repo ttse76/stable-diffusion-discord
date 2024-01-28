@@ -8,8 +8,8 @@ exports.initializeLogger = async (client) => {
   this.logInfo('bot online');
 }
 
-exports.logInfo = (str) => {
-  const log = `[INFO] ${str}`;
+exports.logInfo = (str, context) => {
+  const log = `[INFO] ${str}${ context ? ` [${context}]` : ''}`;
   if (logChannel === null) {
     console.log(log);
     return;
@@ -19,8 +19,8 @@ exports.logInfo = (str) => {
   return;
 };
 
-exports.logError = (str) => {
-  const log = `[ERROR] ${str}`;
+exports.logError = (str, context) => {
+  const log = `[ERROR] ${str}${ context ? ` [${context}]` : ''}`;
   if (logChannel === null) {
     console.log(log);
     return;

@@ -3,9 +3,10 @@ const {
   Events,
   GatewayIntentBits
 } = require('discord.js');
-const { v4: uuidv4} = require('uuid');
 
+const guid = require('../modules/guid');
 const logger = require('../modules/logger');
+const stableDiffusion = require('../stableDiffusion');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
@@ -16,10 +17,16 @@ client.on(Events.InteractionCreate, async interaction => {
 
   switch(commandName) {
     case 'txt2img':
-      const textPrompt = options.getString('prompt');
+      const txt2imgContext = guid.newGuid();
+      const prompt = options.getString('prompt');
       const seed = options.getString('seed') ?? generateSeed();
+      logger.logInfo(`${{ prompt, seed, userId: interaction.user.id }}`, txt2imgContext);
 
-
+      try {
+        const { image, parameters } = await stableDiffusion.txt2Img(prompt, seed);
+      } catch(err) {
+        logger.logError(`error generating image `)
+      }
       break;
   }
 });
