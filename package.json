@@ -4,7 +4,8 @@
   "description": "Discord bot to interact with the Stable Diffusion API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deployCommands": "node ./src/commands/deploy.js",
+    "clearCommands": "node ./src/commands/clear.js"
   },
   "keywords": [
     "discord",
