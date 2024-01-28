@@ -2,9 +2,9 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const publicCommands = [
   new SlashCommandBuilder()
-    .setName('draw')
-    .setDescription('Draw an image with AI')
-    .addStringOption(option => option.setName('prompt').setDescription('Image prompt').setRequired(true))
+    .setName('txt2img')
+    .setDescription('Text to image')
+    .addStringOption(option => option.setName('prompt').setDescription('Text prompt').setRequired(true))
     .addStringOption(option => option.setName('seed').setDescription('Seed'))
 ];
 
