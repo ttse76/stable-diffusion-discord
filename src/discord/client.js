@@ -4,6 +4,7 @@ const {
   GatewayIntentBits
 } = require('discord.js');
 
+const discordEmbedBuilder = require('../modules/embedBuilder'); 
 const guid = require('../modules/guid');
 const logger = require('../modules/logger');
 const stableDiffusion = require('../stableDiffusion');
@@ -21,11 +22,20 @@ client.on(Events.InteractionCreate, async interaction => {
       const prompt = options.getString('prompt');
       const seed = options.getString('seed') ?? generateSeed();
       logger.logInfo(`${{ prompt, seed, userId: interaction.user.id }}`, txt2imgContext);
+      await interaction.deferReply();
 
       try {
         const { image, parameters } = await stableDiffusion.txt2Img(prompt, seed);
+        const { embed, attachment } = discordEmbedBuilder.buildEmbed(txt2imgContext, parameters, image);
+
+        await interaction.editReply({ embeds: [embed], files: [attachment] });
       } catch(err) {
-        logger.logError(`error generating image `)
+        logger.logError(`error generating image`, txt2imgContext);
+        logger.logError(err, txt2imgContext);
+
+        // always log full error to console
+        console.log(err);
+        await interaction.editReply('There was an error generating the image.');
       }
       break;
   }
