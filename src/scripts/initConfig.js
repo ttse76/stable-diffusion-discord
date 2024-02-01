@@ -18,20 +18,20 @@ const isBlankOrWhitespace = (str) => {
 const saveConfig = async () => {
   try {
     const token = await questionAsync('Bot Token (required): ');
-    
     if (isBlankOrWhitespace(token)) {
       throw Error('Bot token cannot be blank.');
     }
 
     const loggerChannel = await questionAsync('Logger Channel (will use console.log if blank): ');
+    
     const stableDiffusionUrl = await questionAsync('Stable Diffusion URL (http://127.0.0.1:7861/sdapi/v1): ');
+    
     const guildDeployIds = await questionAsync('Guilds to deploy bot (required, seperate ids with commas): ');
-    const adminGuildId = await questionAsync('Admin Server ID (required): ');
-
     if (isBlankOrWhitespace(guildDeployIds)) {
       throw Error('Must provide at least one guild to deploy to.')
     }
-
+    
+    const adminGuildId = await questionAsync('Admin Server ID (required): ');
     if (isBlankOrWhitespace(adminGuildId)) {
       throw Error('Admin guild must be set');
     }
