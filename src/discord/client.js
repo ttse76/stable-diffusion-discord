@@ -25,9 +25,7 @@ client.on(Events.InteractionCreate, async interaction => {
       await interaction.deferReply();
 
       try {
-        const { image, parameters } = await stableDiffusion.txt2Img(prompt, seed);
-        const { embed, attachment } = discordEmbedBuilder.buildEmbed(txt2imgContext, parameters, image);
-
+        const { embed, attachment } = await stableDiffusion.txt2Img(txt2imgContext, prompt, seed);
         await interaction.editReply({ embeds: [embed], files: [attachment] });
       } catch(err) {
         logger.logError(`error generating image`, txt2imgContext);

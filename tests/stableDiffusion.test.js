@@ -1,6 +1,7 @@
 const axios = require('axios');
 const stableDiffusion = require('../src/stableDiffusion');
-
+const { AttachmentBuilder, EmbedBuilder } = require('discord.js');
+const guid = require('../src/modules/guid');
 jest.mock('axios');
 
 describe('stable diffusion api tests', () => {
@@ -17,10 +18,33 @@ describe('stable diffusion api tests', () => {
     }
 
     axios.post.mockResolvedValue({ data: testApiResponse });
+    
+    const context = guid.newGuid();
+    const { embed, attachment } = await stableDiffusion.txt2Img(context, prompt, seed);
 
-    const response = await stableDiffusion.txt2Img(prompt, seed);
+    expect(embed).toBeInstanceOf(EmbedBuilder);
+    expect(attachment).toBeInstanceOf(AttachmentBuilder);
+  });
 
-    expect(response.image).toBe(testApiResponse.images[0]);
-    expect(response.parameters).toEqual(testApiResponse.parameters);
+  const imagesResponses = [[], null];
+  test.each(imagesResponses)('error on no images', async (imageResponse) => {
+    const prompt = 'test prompt';
+    const seed = 1234;
+    
+    const apiResponse = {
+      images: imageResponse,
+      parameters: {
+        prompt,
+        seed
+      }
+    }
+
+    axios.post.mockResolvedValue({ data: apiResponse });
+
+    const context = guid.newGuid();
+
+    expect(async () => {
+      await stableDiffusion.txt2Img(context, prompt, seed)
+    }).rejects.toThrow('no images returned');
   });
 });

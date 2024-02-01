@@ -1,13 +1,23 @@
 const StableDiffusionRequestBuiilder = require('stable-diffusion-api-request-builder');
 
+const embedBuilder = require('../modules/embedBuilder');
+
 const api = require('./api');
 
-exports.txt2Img = async (textPrompt, seed) => {
+exports.txt2Img = async (context, textPrompt, seed) => {
   const request = new StableDiffusionRequestBuiilder()
     .setPrompt(textPrompt)
     .setSeed(seed);
   
   const response = await api.txt2imgApi(request);
 
-  return { image: response.images[0], parameters: response.parameters }
+  if (response.images === null || response.images.length === 0) {
+    throw new Error('no images returned');
+  }
+
+  const image = response?.images[0];
+
+  const { embed, attachment } = embedBuilder.buildEmbed(context, response.parameters, image)
+
+  return { embed, attachment };
 };
