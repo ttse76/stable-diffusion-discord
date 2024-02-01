@@ -6,6 +6,7 @@
   "scripts": {
     "deployCommands": "node ./src/commands/deploy.js",
     "clearCommands": "node ./src/commands/clear.js",
+    "initConfig": "node ./src/scripts/initConfig.js",
     "test": "jest --silent"
   },
   "keywords": [
