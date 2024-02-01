@@ -26,16 +26,22 @@ const saveConfig = async () => {
     const loggerChannel = await questionAsync('Logger Channel (will use console.log if blank): ');
     const stableDiffusionUrl = await questionAsync('Stable Diffusion URL (http://127.0.0.1:7861/sdapi/v1): ');
     const guildDeployIds = await questionAsync('Guilds to deploy bot (required, seperate ids with commas): ');
+    const adminGuildId = await questionAsync('Admin Server ID (required): ');
 
     if (isBlankOrWhitespace(guildDeployIds)) {
       throw Error('Must provide at least one guild to deploy to.')
+    }
+
+    if (isBlankOrWhitespace(adminGuildId)) {
+      throw Error('Admin guild must be set');
     }
 
     const config = {
       token,
       loggerChannel: isBlankOrWhitespace(loggerChannel) ? null : loggerChannel,
       stableDiffusionUrl: isBlankOrWhitespace(stableDiffusionUrl) ? 'http://127.0.0.1:7861/sdapi/v1' : stableDiffusionUrl,
-      guildDeployIds: guildDeployIds.split(',')
+      guildDeployIds: guildDeployIds.split(','),
+      adminGuildId: adminGuildId
     };
 
     const configPath = path.join(__dirname, '..', '..', 'config', 'config.json');

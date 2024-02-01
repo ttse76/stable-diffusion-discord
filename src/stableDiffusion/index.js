@@ -21,3 +21,18 @@ exports.txt2Img = async (context, textPrompt, seed) => {
 
   return { embed, attachment };
 };
+
+exports.getModels = async () => {
+  const models = await api.getModelsApi();
+
+  return models.map(model => model.title).sort();
+};
+
+exports.getCurrentModel = async () => {
+  return await api.getCurrentModelApi();
+};
+
+exports.changeModel = async (modelName) => {
+  await api.setModelApi(modelName);
+  return;
+};
