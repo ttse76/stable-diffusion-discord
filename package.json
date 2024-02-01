@@ -1,6 +1,6 @@
 {
   "name": "stable-diffusion-discord",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Discord bot to interact with the Stable Diffusion API",
   "main": "index.js",
   "scripts": {
