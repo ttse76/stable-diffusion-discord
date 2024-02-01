@@ -4,6 +4,7 @@
   "description": "Discord bot to interact with the Stable Diffusion API",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "deployCommands": "node ./src/scripts/commands/deploy.js",
     "clearCommands": "node ./src/scripts/commands/clear.js",
     "initConfig": "node ./src/scripts/initConfig.js",
