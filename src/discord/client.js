@@ -4,7 +4,6 @@ const {
   GatewayIntentBits
 } = require('discord.js');
 
-const discordEmbedBuilder = require('../modules/embedBuilder'); 
 const guid = require('../modules/guid');
 const logger = require('../modules/logger');
 const stableDiffusion = require('../stableDiffusion');
