@@ -1,7 +1,7 @@
 const { 
   guildDeployIds,
   token
-} = require('../../config/config.json');
+} = require('../../../config/config.json');
 
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');

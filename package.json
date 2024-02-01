@@ -4,8 +4,10 @@
   "description": "Discord bot to interact with the Stable Diffusion API",
   "main": "index.js",
   "scripts": {
-    "deployCommands": "node ./src/commands/deploy.js",
-    "clearCommands": "node ./src/commands/clear.js",
+    "start": "node index.js",
+    "deployCommands": "node ./src/scripts/commands/deploy.js",
+    "clearCommands": "node ./src/scripts/commands/clear.js",
+    "initConfig": "node ./src/scripts/initConfig.js",
     "test": "jest --silent"
   },
   "keywords": [
